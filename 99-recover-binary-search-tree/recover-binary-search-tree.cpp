@@ -9,9 +9,8 @@ public:
         if(root==NULL) return;
         check(root->left,prev,first,second);
         if(prev && prev->val >= root->val){
-            if(first == NULL)
-                first = prev;
-            second = root;
+            if(first == nullptr)first=prev;
+            second=root;
         }
         prev=root;
         check(root->right,prev,first,second); 
