@@ -1,24 +1,23 @@
 class Solution {
 public:
-    bool isPossible(int mid, vector<int>& arr, int threshold){
+    bool isPossible(vector<int>& nums, int threshold,  int mid){
         int sum=0;
-        for(int i=0;i<arr.size();i++){
-            // sum+=ceil((double)(arr[i]/mid));
-            sum += (arr[i] + mid - 1) / mid;
+        for(auto x: nums){
+            sum = sum + (x + mid -1)/mid;
         }
         return sum <= threshold;
     }
     int smallestDivisor(vector<int>& nums, int threshold) {
-        int low=1;
+        // search space
+        int low = 1;//the lowest divisor possible;
         int high = *max_element(nums.begin(),nums.end());
-        int ans;
+        int ans = high;
+
         while(low<=high){
             int mid = low + (high-low)/2;
-            // function to check
-            if(isPossible(mid,nums,threshold)==true){
-                ans= mid;
-                // now will search for the smallest divisor
-                high=mid-1;
+            if(isPossible(nums,threshold,mid)){
+                ans=mid;
+                high=mid-1; //ihave to find minimun divisor;
             }
             else{
                 low=mid+1;
