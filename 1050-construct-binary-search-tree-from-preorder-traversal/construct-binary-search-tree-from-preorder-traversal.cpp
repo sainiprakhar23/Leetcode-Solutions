@@ -33,37 +33,70 @@ public:
 
 
     /*ITERATION*/
-    TreeNode* insert(TreeNode* root, int data) {
+    // TreeNode* insert(TreeNode* root, int data) {
+    //     TreeNode* node = new TreeNode(data);
+
+    //     if (root == NULL)
+    //         return node;
+
+    //     TreeNode* curr = root;
+
+    //     while (true) {
+    //         if (data < curr->val) {
+    //             if (curr->left == NULL) {
+    //                 curr->left = node;
+    //                 break;
+    //             }
+    //             curr = curr->left;
+    //         }
+    //         else {
+    //             if (curr->right == NULL) {
+    //                 curr->right = node;
+    //                 break;
+    //             }
+    //             curr = curr->right;
+    //         }
+    //     }
+
+    //     return root;
+    // }
+
+    TreeNode* insert2(TreeNode* root, int data) {
         TreeNode* node = new TreeNode(data);
 
         if (root == NULL)
             return node;
 
         TreeNode* curr = root;
+        TreeNode* prev = NULL;
 
-        while (true) {
-            if (data < curr->val) {
-                if (curr->left == NULL) {
-                    curr->left = node;
-                    break;
-                }
+        while (curr != NULL) {
+            prev = curr;
+
+            if (data < curr->val)
                 curr = curr->left;
-            }
-            else {
-                if (curr->right == NULL) {
-                    curr->right = node;
-                    break;
-                }
+            else
                 curr = curr->right;
-            }
         }
+
+        // prev is the parent where the new node should be attached
+        if (data < prev->val)
+            prev->left = node;
+        else
+            prev->right = node;
 
         return root;
     }
     TreeNode* bstFromPreorder(vector<int>& preorder) {
         TreeNode* root = NULL;
+
+        // iteration 1 method
+        // for (int x : preorder) {
+        //     root = insert(root, x);
+        // }
+        //iteration 2 method
         for (int x : preorder) {
-            root = insert(root, x);
+            root = insert2(root, x);
         }
 
         return root;
