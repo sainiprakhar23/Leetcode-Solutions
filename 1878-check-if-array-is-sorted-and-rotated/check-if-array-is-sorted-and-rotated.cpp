@@ -51,7 +51,7 @@ public:
         //check for 1 dip or 1 peak
         // int peak=0;
         // for(int i=0;i<n;i++){
-        //     if(nums[i] > nums[(i+1) % n]){
+        //     if(nums[i] > nums[(i+1) % n]){ //%n beacuse we have to also chech last ele with first 
         //         peak++;
         //     }
         // }
