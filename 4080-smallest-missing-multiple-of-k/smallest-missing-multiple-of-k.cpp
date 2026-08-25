@@ -2,6 +2,7 @@ class Solution {
 public:
     int missingMultiple(vector<int>& nums, int k) {
         unordered_set<int>s;
+        sort(nums.begin(),nums.end());
         for(int i=0;i<nums.size();i++){
             s.insert(nums[i]);
         }
