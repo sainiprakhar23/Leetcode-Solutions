@@ -1,36 +1,32 @@
 class Solution {
 public:
     long long maximumSubarraySum(vector<int>& nums, int k) {
-
-        unordered_map<int,int> freq;
-
-        long long sum = 0;
-        long long ans = 0;
-
-        int left = 0;
-
-        for(int right = 0; right < nums.size(); right++) {
-
-            sum += nums[right];
-            freq[nums[right]]++;
-
-            if(right - left + 1 > k) {
-
-                sum -= nums[left];
-
-                freq[nums[left]]--;
-
-                if(freq[nums[left]] == 0)
-                    freq.erase(nums[left]);
-
+        int n=nums.size();
+        unordered_set<int>st;
+        long long maxSum=0;
+        long long currSum=0;
+        int left=0;
+        int right=0;
+        while(right < n){
+            // check if the nums[right] is present in set ,if present remove nums[left] one by one
+            while(st.count(nums[right])){
+                currSum -= nums[left];
+                st.erase(nums[left]);
                 left++;
             }
+            // if not in set add it
+            currSum+=nums[right];
+            st.insert(nums[right]);
 
-            if(right - left + 1 == k && freq.size() == k) {
-                ans = max(ans, sum);
+            if(right-left+1  == k){
+                maxSum=max(maxSum,currSum);
+                currSum-=nums[left];
+                st.erase(nums[left]);
+                left++;
             }
+            right++;
         }
-
-        return ans;
+        return maxSum;
+        
     }
 };
