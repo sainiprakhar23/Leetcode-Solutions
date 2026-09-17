@@ -20,18 +20,34 @@ public:
         // return count;
 
         //OPTIMISED THEN BRUTEFORCE LESS THAN O(n2)
+        // int max_Ans=0;
+        // int zeroCount=0;
+        // int left=0;
+        // for(int right=0;right<n;right++){
+        //     if(nums[right]==0) zeroCount++;
+
+        //     while(zeroCount > k){
+        //         if(nums[left]==0) zeroCount--;
+        //         left++;
+        //     }
+        //     max_Ans=max(max_Ans,right-left+1);
+        // }
+        // return max_Ans;
+
+
+        //OPTIMISED  O(n)
         int max_Ans=0;
         int zeroCount=0;
         int left=0;
         for(int right=0;right<n;right++){
             if(nums[right]==0) zeroCount++;
 
-            while(zeroCount > k){
+            if(zeroCount > k){
                 if(nums[left]==0) zeroCount--;
                 left++;
             }
-            max_Ans=max(max_Ans,right-left+1);
         }
-        return max_Ans;
+        //now left is is the best location till right is moves out of last indx
+        return n - left;
     }
 };
