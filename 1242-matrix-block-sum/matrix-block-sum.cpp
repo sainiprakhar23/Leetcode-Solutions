@@ -54,6 +54,7 @@ public:
         for(int i = 0; i < n; i++) {
 
             for(int j = 0; j < m; j++) {
+
                 int r1 = max(0, i - k);
                 int c1 = max(0, j - k);
 
@@ -65,29 +66,6 @@ public:
                 c1++;
                 r2++;
                 c2++;
-
-
-                // -------------------------------------------------
-                // Rectangle Sum Formula
-                // -------------------------------------------------
-                //
-                //        c1       c2
-                //         ↓        ↓
-                //      ┌────────────┐
-                // r1 → │    BLOCK   │
-                //      │            │
-                // r2 → └────────────┘
-                //
-                // Rectangle sum =
-                //
-                // bottom-right
-                // - area above
-                // - area left
-                // + top-left
-                //
-                // Why + top-left?
-                // Because it was subtracted twice.
-                //
 
                 ans[i][j] =
                     prefix[r2][c2]           // Total up to bottom-right
@@ -158,6 +136,39 @@ public:
                 // For a boundary cell, we clip the range.
                 //
 
+
+                // -------------------------------------------------
+                // Convert ORIGINAL matrix coordinates
+                // to PREFIX matrix coordinates.
+                // -------------------------------------------------
+                //
+                // Prefix matrix has one extra row and column.
+                //
+                // mat[i][j] corresponds to prefix[i+1][j+1]
+                //
+                // Therefore add 1 to all boundaries.
+
+                // -------------------------------------------------
+                // Rectangle Sum Formula
+                // -------------------------------------------------
+                //
+                //        c1       c2
+                //         ↓        ↓
+                //      ┌────────────┐
+                // r1 → │    BLOCK   │
+                //      │            │
+                // r2 → └────────────┘
+                //
+                // Rectangle sum =
+                //
+                // bottom-right
+                // - area above
+                // - area left
+                // + top-left
+                //
+                // Why + top-left?
+                // Because it was subtracted twice.
+                //
         // =========================================================
         // STEP 2: CALCULATE EACH ans[i][j]
         // =========================================================
