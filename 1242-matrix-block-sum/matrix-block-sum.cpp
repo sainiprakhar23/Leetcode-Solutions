@@ -36,26 +36,11 @@ public:
         // Answer matrix: same size as original matrix
         vector<vector<int>> ans(n, vector<int>(m, 0));
 
-
-
         vector<vector<int>> prefix(n + 1, vector<int>(m + 1, 0));
 
-
-        // Build prefix matrix
         for(int i = 1; i <= n; i++) {
 
             for(int j = 1; j <= m; j++) {
-
-                // IMPORTANT:
-                //
-                // prefix[i][j] corresponds to mat[i-1][j-1]
-                //
-                // We take:
-                //
-                // current element
-                // + everything above
-                // + everything on the left
-                // - top-left because it was counted twice
 
                 prefix[i][j] =
                     mat[i-1][j-1]
@@ -66,47 +51,15 @@ public:
         }
 
 
-        // =========================================================
-        // STEP 2: CALCULATE EACH ans[i][j]
-        // =========================================================
-
         for(int i = 0; i < n; i++) {
 
             for(int j = 0; j < m; j++) {
-
-                // -------------------------------------------------
-                // Find the block around (i, j)
-                // -------------------------------------------------
-                //
-                // Example:
-                //
-                // k = 1
-                //
-                // For (1,1):
-                //
-                // rows = [0,2]
-                // cols = [0,2]
-                //
-                // For a boundary cell, we clip the range.
-                //
-
                 int r1 = max(0, i - k);
                 int c1 = max(0, j - k);
 
                 int r2 = min(n - 1, i + k);
                 int c2 = min(m - 1, j + k);
 
-
-                // -------------------------------------------------
-                // Convert ORIGINAL matrix coordinates
-                // to PREFIX matrix coordinates.
-                // -------------------------------------------------
-                //
-                // Prefix matrix has one extra row and column.
-                //
-                // mat[i][j] corresponds to prefix[i+1][j+1]
-                //
-                // Therefore add 1 to all boundaries.
 
                 r1++;
                 c1++;
@@ -148,3 +101,63 @@ public:
         return ans;
     }
 };
+
+        // =========================================================
+        // STEP 1: BUILD 2D PREFIX SUM MATRIX
+        // =========================================================
+
+        // Extra row + extra column filled with 0
+        //
+        // Why?
+        // It makes boundary calculations much easier.
+        //
+        // prefix[i][j] represents the sum of:
+        //
+        // mat[0][0] ---> mat[i-1][j-1]
+        //
+        // Example:
+        //
+        // mat:
+        // 1 2 3
+        // 4 5 6
+        // 7 8 9
+        //
+        // prefix:
+        // 0  0  0  0
+        // 0  1  3  6
+        // 0  5 12 21
+        // 0 12 27 45
+
+        // Build prefix matrix
+                // IMPORTANT:
+                //
+                // prefix[i][j] corresponds to mat[i-1][j-1]
+                //
+                // We take:
+                //
+                // current element
+                // + everything above
+                // + everything on the left
+                // - top-left because it was counted twice
+
+
+        // second for nested loop
+                // -------------------------------------------------
+                // Find the block around (i, j)
+                // -------------------------------------------------
+                //
+                // Example:
+                //
+                // k = 1
+                //
+                // For (1,1):
+                //
+                // rows = [0,2]
+                // cols = [0,2]
+                //
+                // For a boundary cell, we clip the range.
+                //
+
+        // =========================================================
+        // STEP 2: CALCULATE EACH ans[i][j]
+        // =========================================================
