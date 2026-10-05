@@ -35,10 +35,10 @@ public:
         int result = INT_MIN;
         for(int i=0; i<n;i ++){
             currentSum += nums[i];
-            result = max(result,currentSum);
-            if(currentSum < 0) currentSum=0; //start again
 
-            
+            result = max(result,currentSum);
+
+            if(currentSum < 0) currentSum=0; //start again
         }
         return result;
     }
