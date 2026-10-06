@@ -37,6 +37,7 @@ public:
             if(powerUsed != INT_MIN){
                 v4 = powerUsed + arr[i];
             }
+            // ans:"Only extend the powerUsed state if we actually had a valid powerUsed state from the previous index."
 
             powerNotUsed = max(v1, v2);
             powerUsed = max(v3, v4);
