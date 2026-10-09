@@ -22,7 +22,7 @@ public:
 
 
         // OPTIMAL -> HASHMAP(CHAR : INDEX) TO REMOVE WHILE LOOP
-        unordered_map<int,int> mp;
+        unordered_map<char,int> mp;
         int result= 0;
         int left = 0;
         for(int right=0; right<n; right++){
