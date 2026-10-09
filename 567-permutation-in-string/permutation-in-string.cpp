@@ -19,23 +19,49 @@ public:
         // }
         // return false;
 
-        // OPTIMAL
-        vector<int> str1(26,0);
-                vector<int> str2(26,0);
+        // OPTIMAL  -> SLIDING WINDOW + VECTOR
+        // vector<int> str1(26,0);
+        //         vector<int> str2(26,0);
+        // for(char ch : s1){
+        //     str1[ch - 'a']++;
+        // }
+
+        // for(int right=0; right < s2.length(); right++){
+        //     char ch = s2[right];
+        //     str2[ch - 'a']++;
+
+        //     if(right >= s1.length()){
+        //         char leftChar = s2 [right  - s1.length()];
+        //         str2[leftChar - 'a']--;
+        //     }
+
+        //     if(str1==str2) return true;
+        // }
+        // return false;
+
+
+        // OPTMAL-> SLIDING WINDOW + HASHMAP
+        unordered_map<char, int> mp;
         for(char ch : s1){
-            str1[ch - 'a']++;
+            mp[ch]++;
         }
-
-        for(int right=0; right < s2.length(); right++){
+        int count = s1.length();
+        int left = 0;
+        for(int right=0; right<s2.length(); right++){
             char ch = s2[right];
-            str2[ch - 'a']++;
+            int freq = mp[ch]; //if not tere in map it will create it with freq=0
 
-            if(right >= s1.length()){
-                char leftChar = s2 [right  - s1.length()];
-                str2[leftChar - 'a']--;
+            if(freq > 0) count--;
+            mp[ch] = freq - 1;
+
+            if(right - left + 1 > s1.length()){
+                char leftChar = s2[left];
+                if(mp[leftChar] >= 0 )count++; //
+                mp[leftChar]++; //when leaving incfese the freq
+                left++;
             }
-
-            if(str1==str2) return true;
+            
+            if(count==0) return true;
         }
         return false;
     }
