@@ -61,7 +61,7 @@ public:
             required[word]++;
         }
 
-        // STEP 2: Try every possible alignment
+        //STEP 2: Try every possible alignment
         for (int offset = 0; offset < wordLen; offset++) {
 
             // Initialize a new sliding window
@@ -92,7 +92,18 @@ public:
                     left += wordLen;
                 }
                 // CASE 4: All required words are matched
-                if (count == wordCount) {
+                if (count == wordCount) { 
+                    // thi sowrks becuse we are removinf extre freq elemnts in case 3,
+                    // if case 3 was not these then it can give incoorect result
+                    // required = {
+                    //     {"foo", 1},
+                    //     {"bar", 1}
+                    // }
+                    // window = {
+                    //     {"foo", 2}
+                    // }
+
+                    // like above , if we don't use case 3, other way is to compare map direclty, but this take O(k) time so we not prefer, but we can do it
                     ans.push_back(left);
                     // Remove leftmost word to continue searching
                     string leftWord = s.substr(left, wordLen);
