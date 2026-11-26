@@ -12,7 +12,23 @@ public:
             if(n < stones || stones==0) break;
         }
 
-        if(turn ==1) return false;
+        if(turn == 1) return false;
         else return true;
     }
 };
+
+// class Solution {
+// public:
+//     bool canAliceWin(int n) {
+//         int stones = 10;
+//         bool alice = true;
+
+//         while (n >= stones) {
+//             n -= stones;
+//             stones--;
+//             alice = !alice;
+//         }
+
+//         return !alice;
+//     }
+// };
