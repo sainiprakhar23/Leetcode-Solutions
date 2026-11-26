@@ -38,11 +38,10 @@ public:
 
         // STEP 4: Remove leading zeros
         int i = 0;
-
         while(i < result.size() && result[i] == '0'){
             i++;
         }
-
+        
         result = result.substr(i);
 
         // STEP 5: Handle empty result
