@@ -10,17 +10,12 @@ public:
         stack<char> st;
         string result = "";
 
-        // STEP 1: Greedy removal
+        // STEP 1: Greedy removal, we try to main the increasing order
         for(int i = 0; i < n; i++){
-
-            while(!st.empty() &&
-                  st.top() > num[i] &&
-                  k > 0){
-
+            while(!st.empty() && st.top() > num[i] && k > 0){
                 st.pop();
                 k--;
             }
-
             // Push every digit
             st.push(num[i]);
         }
