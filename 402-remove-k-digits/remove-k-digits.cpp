@@ -1,26 +1,39 @@
 class Solution {
 public:
     string removeKdigits(string num, int k) {
-        int n = num.size();
-        if(k>=n) return "0";
 
-        stack<int> st;
-        string result="";
-        for(int  i=0; i<n; i++){
-            while(!st.empty() && st.top() > num[i] && k>0){
+        int n = num.size();
+
+        // Edge case
+        if(k >= n) return "0";
+
+        stack<char> st;
+        string result = "";
+
+        // STEP 1: Greedy removal
+        for(int i = 0; i < n; i++){
+
+            while(!st.empty() &&
+                  st.top() > num[i] &&
+                  k > 0){
+
                 st.pop();
                 k--;
             }
+
+            // Push every digit
             st.push(num[i]);
         }
 
-        while(k>0){
+        // STEP 2: Remove remaining digits from the end
+        while(k > 0){
             st.pop();
             k--;
         }
 
         if(st.empty()) return "0";
 
+        // STEP 3: Construct result
         while(!st.empty()){
             result.push_back(st.top());
             st.pop();
@@ -28,13 +41,16 @@ public:
 
         reverse(result.begin(), result.end());
 
-        int i=0;
-        while(i<result.size() && result[i]=='0'){
+        // STEP 4: Remove leading zeros
+        int i = 0;
+
+        while(i < result.size() && result[i] == '0'){
             i++;
         }
 
         result = result.substr(i);
 
+        // STEP 5: Handle empty result
         if(result.empty()) return "0";
 
         return result;
